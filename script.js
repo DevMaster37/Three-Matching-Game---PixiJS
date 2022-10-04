@@ -1,6 +1,6 @@
 
 // Create the application helper and add its render target to the page
-let app = new PIXI.Application({ width: window.innerHeight / 1500 * 760, height: window.innerHeight, backgroundColor: 0Xb7ff7e, });
+let app = new PIXI.Application({ width: 491, height: 969, backgroundColor: 0Xb7ff7e, });
 app.stage.sortableChildren = true;
 document.body.appendChild(app.view);
 
@@ -9,6 +9,7 @@ document.body.appendChild(app.view);
     var grassCount = 15;
     var gamePanelState;
     var reducedCount = 0, totalCount = 18;
+    var gamePanelCount = 50;
     $.get("./gamePanel.json", function(data, status){
         if (status == "success") {
             gamePanelState = data;
@@ -20,7 +21,7 @@ function DoWork(){
     var stashbarState = {
         stashbarList: [],
         nextPosX: 45,
-        nextPosY: 759,
+        nextPosY: 790,
         count:0,
         maxCount: 7,
     };
@@ -235,9 +236,12 @@ var goToStashBar = function(panel){
     panelBackTexture        = new PIXI.Texture(baseTexture, new PIXI.Rectangle(5, 5, 92, 102));
     panelDisabledTexture    = new PIXI.Texture(baseTexture, new PIXI.Rectangle(5, 112, 92, 92));
     //Load panel Images
-    for(var i = 0 ; i < 16 ; i ++){
-        var texture         = new PIXI.Texture(baseTexture, new PIXI.Rectangle(102 + 5 + 83 * parseInt(i / 3), 3 + 83 * (i % 3), 78, 78));
-        panelTextures.push(texture);
+    for(var i = 1 ; i <= gamePanelCount ; i ++){
+        var fName = ("000" + i).slice(-3);
+        var baseTexture = new PIXI.BaseTexture('./asset/png/' + fName + '.png');
+        baseTexture.width = 78;
+        baseTexture.height = 78;
+        panelTextures.push(baseTexture);
     }
 // Placing panels folling to gamePanelState variable
     // Variables(panel Sprites)
